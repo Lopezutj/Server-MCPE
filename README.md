@@ -14,7 +14,20 @@ Este proyecto contiene la configuración de Docker Compose para desplegar rápid
    ```bash
    docker compose up -d
    ```
-4. El servidor descargará la versión requerida y se iniciará. 
+4. El servidor descargará la versión requerida y se iniciará.
+
+ para ver logs 
+```bash
+   docker logs -f mc-crossplay
+```
+ para detener el servidor 
+```bash
+   docker compose down
+```
+ para reiniciar el servidor
+```bash
+   docker compose restart
+```
 
 **Nota sobre los datos:** Todos los archivos del servidor (mundos, configuraciones, plugins) se guardarán en la carpeta `data/`. Esta carpeta está excluida en el `.gitignore` para evitar que subas mundos pesados a GitHub accidentalmente.
 

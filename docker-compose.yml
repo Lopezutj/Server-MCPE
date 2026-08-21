@@ -11,7 +11,8 @@ services:
       VERSION: "LATEST" #Version del servidor
       MEMORY: "4G" #Memoria RAM asignada al servidor
       ONLINE_MODE: "false" #Desactivar modo online (para piratas)
-      MODRINTH_PROJECTS: "geyser,floodgate,viaversion,viabackwards" # Descarga automática de plugins para cross-play
+      PLUGINS: "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot,https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
+      MODRINTH_PROJECTS: "viaversion,viabackwards"
     volumes: #Volumes a mapear
       - ./data:/data #Volumen para persistencia de datos
     restart: unless-stopped #Reiniciar el contenedor a menos que se detenga manualmente
