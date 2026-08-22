@@ -16,3 +16,10 @@ services:
     volumes: #Volumes a mapear
       - ./data:/data #Volumen para persistencia de datos
     restart: unless-stopped #Reiniciar el contenedor a menos que se detenga manualmente
+  playit:
+    image: playitgg/playit-agent
+    container_name: playit-tunnel
+    network_mode: "service:minecraft" # Esto permite que Playit vea los puertos de Minecraft directamente
+    restart: unless-stopped
+    depends_on:
+      - minecraft
