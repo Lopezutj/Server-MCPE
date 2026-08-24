@@ -41,34 +41,59 @@ Compatible con **Windows**, **macOS** y **Linux**.
 
 ## 🌍 Compartir el Servidor por Internet (Sin abrir puertos)
 
-Para que tus amigos se conecten desde cualquier parte del mundo **sin necesidad de abrir puertos en tu router/módem**, usa [Playit.gg](https://playit.gg):
+Este proyecto incluye **[Playit.gg](https://playit.gg)** integrado directamente en Docker Compose. Esto permite que tus amigos se conecten desde cualquier parte del mundo **sin necesidad de abrir puertos en tu router/módem**.
 
-1. Descarga Playit.gg desde [playit.gg/download](https://playit.gg/download) (disponible para **Windows** y **macOS**).
-2. Crea una cuenta gratuita e inicia sesión.
-3. Crea **dos túneles** dentro de Playit:
+### Configuración inicial (solo la primera vez)
 
-   | Túnel | IP Local | Puerto | Protocolo |
-   |-------|----------|--------|-----------|
-   | Java | `127.0.0.1` | `25565` | TCP |
-   | Bedrock | `127.0.0.1` | `19132` | UDP |
+1. Ve a [playit.gg/account/setup](https://playit.gg/account/setup/wizard/new-account) y crea una cuenta gratuita.
+2. Selecciona **Docker** como tu entorno.
+3. La página te dará un `SECRET_KEY`. Copia esa clave.
+4. Crea un archivo `.env` en la raíz del proyecto (al lado del `docker-compose.yml`) con el siguiente contenido:
+   ```env
+   PLAYIT_SECRET_KEY=TU_CLAVE_AQUI
+   ```
+5. Inicia todo con:
+   ```bash
+   docker compose up -d
+   ```
+6. Verifica que el agente esté conectado:
+   ```bash
+   docker logs playit-tunnel
+   ```
+   Deberías ver: `playit connected; tunnels loaded`.
 
-4. Playit te asignará una dirección pública (ejemplo: `tu-servidor.auto.playit.gg`).
-5. ¡Comparte esa dirección con tus amigos y listo!
+7. Ve a [playit.gg/account/tunnels](https://playit.gg/account/tunnels) y crea **dos túneles**:
+
+   | Túnel | Tipo | Puerto Local | Protocolo |
+   |-------|------|--------------|-----------|
+   | Java | Minecraft Java | `25565` | TCP |
+   | Bedrock | Minecraft Bedrock | `19132` | UDP |
+
+8. Playit te asignará una dirección pública (ejemplo: `tu-servidor.auto.playit.gg`).
+
+> **Nota:** El archivo `.env` contiene tu clave secreta y está excluido del repositorio gracias al `.gitignore`. Nunca se subirá a GitHub.
 
 ## 🌐 Cómo Conectarse
 
 ### ☕ Jugadores de Java Edition
-En el menú Multijugador → "Añadir servidor":
-- **Misma computadora:** `localhost`
-- **Misma red Wi-Fi/LAN:** `IP_LOCAL` del host (ejemplo: `192.168.1.15`)
-- **Desde Internet (con Playit.gg):** `tu-servidor.auto.playit.gg`
+1. Abre Minecraft Java Edition.
+2. Ve a **Multijugador** → **Añadir servidor**.
+3. En **Dirección del servidor** ingresa:
+   - **Misma computadora:** `localhost`
+   - **Misma red Wi-Fi/LAN:** `IP_LOCAL` del host (ejemplo: `192.168.1.15`)
+   - **Desde Internet (con Playit.gg):** `tu-servidor.auto.playit.gg`
+4. Haz clic en **Listo** y luego conéctate.
 
 *Puerto por defecto: `25565` (no es necesario especificarlo).*
 
 ### 📱 Jugadores de Bedrock Edition (Móviles, Consolas, Windows 10/11)
-En la pestaña Servidores → "Añadir servidor":
-- **Nombre del servidor:** (Cualquier nombre)
-- **Dirección del servidor:**
-  - **Misma red local:** `IP_LOCAL` del host
-  - **Desde Internet (con Playit.gg):** `tu-servidor.auto.playit.gg`
-- **Puerto:** `19132`
+1. Abre Minecraft Bedrock Edition.
+2. Ve a **Jugar** → pestaña **Servidores** → baja hasta el final → **Añadir servidor**.
+3. Llena los campos:
+   - **Nombre del servidor:** (Cualquier nombre, ejemplo: `Mi Server`)
+   - **Dirección del servidor:**
+     - **Misma red local:** `IP_LOCAL` del host
+     - **Desde Internet (con Playit.gg):** `tu-servidor.auto.playit.gg`
+   - **Puerto:** `19132` (o el que te haya asignado Playit)
+4. Guarda y conéctate.
+
